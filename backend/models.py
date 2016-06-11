@@ -5,9 +5,8 @@ class TicketTypeAlias(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
 
 class TicketType(models.Model):
-    name = models.CharField(max_length=256)
     comment = models.CharField(max_length=500)
-    alias = models.ManyToManyField(TicketTypeAlias)
+    names = models.ManyToManyField(TicketTypeAlias)
 
 class Ticket(models.Model):
     location = models.PointField()
