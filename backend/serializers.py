@@ -23,6 +23,8 @@ class TicketTypeAliasSerializer(ModelSerializer):
         model = TicketTypeAlias
 
 
+
+
 class TicketTypeSerializer(ModelSerializer):
     class Meta:
         model = TicketType

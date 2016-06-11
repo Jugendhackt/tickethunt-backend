@@ -27,5 +27,16 @@ class TicketViewSet(DefaultViewSet):
 class TicketTypeViewSet(DefaultViewSet):
     model_class = TicketType
 
+    def perform_create_update(self, serializer):
+        if serializer.validated_data['show_name'] not in serializer.validated_data['names']:
+            names = serializer.validated_data['names']
+            names.append(serializer.validated_data['show_name'])
+            serializer.save(names=names)
+        else:
+            serializer.save()
+
+    perform_create = perform_create_update
+    perform_update = perform_create_update
+
 class TicketTypeAliasViewSet(DefaultViewSet):
     model_class = TicketTypeAlias
