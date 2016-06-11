@@ -27,6 +27,8 @@ class TicketViewSet(DefaultViewSet):
     model_class = Ticket
     bbox_filter_field = 'location'
     filter_backends = (InBBoxFilter, )
+    permission_classes = ()
+
     def get_queryset(self):
         assert self.model_class is not None, "You need to override model_class"
         now = datetime.datetime.now(pytz.utc)
