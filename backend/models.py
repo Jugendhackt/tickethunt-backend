@@ -13,6 +13,6 @@ class Ticket(models.Model):
     location = models.PointField()
     ticket_type = models.ManyToManyField(TicketType)
     persons = models.IntegerField()
-    comment = models.CharField(max_length=500)
+    comment = models.CharField(max_length=500, blank=True)
     image = models.ImageField(upload_to='./tickets/', null=True)
     valid_until = models.DateTimeField()
