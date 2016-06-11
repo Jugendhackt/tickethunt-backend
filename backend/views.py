@@ -3,7 +3,7 @@ from backend.serializers import TicketSerializer, TicketTypeSerializer, TicketTy
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework_gis.filters import InBBoxFilter
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, DjangoFilterBackend
 from rest_framework_extensions.mixins import CacheResponseAndETAGMixin
 
 import datetime
@@ -26,13 +26,17 @@ class DefaultViewSet(CacheResponseAndETAGMixin, viewsets.ModelViewSet):
 class TicketViewSet(DefaultViewSet):
     model_class = Ticket
     bbox_filter_field = 'location'
-    filter_backends = (InBBoxFilter, )
+    filter_backends = (InBBoxFilter, DjangoFilterBackend)
+    filter_fields = ('ticket_type',)
     permission_classes = ()
 
     def get_queryset(self):
         assert self.model_class is not None, "You need to override model_class"
         now = datetime.datetime.now(pytz.utc)
+        if "min_valid" in self.request.query_params:
+            now = now + datetime.timedelta(minutes=int(self.request.query_params['min_valid']))
         queryset = self.model_class.objects.filter(valid_until__gt=now)
+
         return queryset
 
 
