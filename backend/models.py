@@ -2,9 +2,7 @@ from django.contrib.gis.db import models
 
 # Create your models here.
 class TicketTypeAlias(models.Model):
-    name = models.CharField(max_length=256)
-    def __str__(self):
-        return self.name
+    name = models.CharField(max_length=255, primary_key=True)
 
 class TicketType(models.Model):
     name = models.CharField(max_length=256)

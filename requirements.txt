@@ -1,6 +1,7 @@
 Django==1.9.7
 django-cors-headers==1.1.0
-djangorestframework==3.3.3
+-e git+https://github.com/tomchristie/django-rest-framework.git@bb22ab8ee7c5d484dde7112dbe5551bcfc89d7d3#egg=djangorestframework
+#djangorestframework==3.3.3
 djangorestframework-gis==0.10.1
 drf-extensions==0.2.8
 mysqlclient==1.3.7
