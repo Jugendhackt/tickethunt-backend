@@ -3,6 +3,7 @@ from backend.serializers import TicketSerializer, TicketTypeSerializer, TicketTy
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework_gis.filters import InBBoxFilter
+from rest_framework.filters import SearchFilter
 from rest_framework_extensions.mixins import CacheResponseAndETAGMixin
 
 class DefaultViewSet(CacheResponseAndETAGMixin, viewsets.ModelViewSet):
@@ -24,8 +25,11 @@ class TicketViewSet(DefaultViewSet):
     bbox_filter_field = 'location'
     filter_backends = (InBBoxFilter, )
 
+
 class TicketTypeViewSet(DefaultViewSet):
     model_class = TicketType
+    filter_backends = (SearchFilter,)
+    search_fields = ('names__name',)
 
     def perform_create_update(self, serializer):
         if serializer.validated_data['show_name'] not in serializer.validated_data['names']:
