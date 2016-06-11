@@ -7,9 +7,9 @@ class TicketTypeAlias(models.Model):
         return self.name
 
 class TicketType(models.Model):
-    comment = models.CharField(max_length=500)
+    comment = models.CharField(max_length=500, blank=True)
     show_name = models.ForeignKey(TicketTypeAlias, related_name='%(class)s_show')
-    names = models.ManyToManyField(TicketTypeAlias)#, related_name='%(class)s_requests_created')
+    names = models.ManyToManyField(TicketTypeAlias)
     def __str__(self):
         return self.show_name
 
