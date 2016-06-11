@@ -1,4 +1,4 @@
-from backend.models import Ticket, TicketType
+from backend.models import Ticket, TicketType, TicketTypeAlias
 from rest_framework.serializers import ModelSerializer, ValidationError
 
 import pytz
@@ -16,6 +16,11 @@ class TicketSerializer(ModelSerializer):
         if now >= value:
             raise ValidationError("Valid Until must be in the future")
         return value
+
+
+class TicketTypeAliasSerializer(ModelSerializer):
+    class Meta:
+        model = TicketTypeAlias
 
 
 class TicketTypeSerializer(ModelSerializer):

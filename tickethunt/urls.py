@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from backend.views import TicketViewSet, TicketTypeViewSet
+from backend.views import TicketViewSet, TicketTypeViewSet, TicketTypeAliasViewSet
 from tickethunt import settings
 from django.views.static import serve
 
 router = routers.DefaultRouter()
 router.register(r'ticket', TicketViewSet, base_name="ticket")
 router.register(r'tickettype', TicketTypeViewSet, base_name="tickettype")
+router.register(r'tickettypealias', TicketTypeAliasViewSet, base_name="tickettypealias")
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
