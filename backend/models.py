@@ -11,7 +11,7 @@ class TicketType(models.Model):
     show_name = models.ForeignKey(TicketTypeAlias, related_name='%(class)s_show')
     names = models.ManyToManyField(TicketTypeAlias)
     def __str__(self):
-        return self.show_name
+        return self.show_name.name
 
 class Ticket(models.Model):
     location = models.PointField()
