@@ -6,6 +6,9 @@ from rest_framework_gis.filters import InBBoxFilter
 from rest_framework.filters import SearchFilter
 from rest_framework_extensions.mixins import CacheResponseAndETAGMixin
 
+import datetime
+import pytz
+
 class DefaultViewSet(CacheResponseAndETAGMixin, viewsets.ModelViewSet):
     model_class = None
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -24,6 +27,11 @@ class TicketViewSet(DefaultViewSet):
     model_class = Ticket
     bbox_filter_field = 'location'
     filter_backends = (InBBoxFilter, )
+    def get_queryset(self):
+        assert self.model_class is not None, "You need to override model_class"
+        now = datetime.datetime.now(pytz.utc)
+        queryset = self.model_class.objects.filter(valid_until__gt=now)
+        return queryset
 
 
 class TicketTypeViewSet(DefaultViewSet):
