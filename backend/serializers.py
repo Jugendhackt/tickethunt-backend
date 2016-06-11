@@ -7,6 +7,7 @@ import datetime
 class TicketSerializer(ModelSerializer):
     class Meta:
         model = Ticket
+        depth = 1
 
     def validate_valid_until(self, value):
         """
@@ -21,8 +22,6 @@ class TicketSerializer(ModelSerializer):
 class TicketTypeAliasSerializer(ModelSerializer):
     class Meta:
         model = TicketTypeAlias
-
-
 
 
 class TicketTypeSerializer(ModelSerializer):
